@@ -1,0 +1,105 @@
+/* Header.module.css */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 150px;
+    background-color: #00a896;
+    padding: 0;
+    color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Centraliza verticalmente o conteúdo */
+}
+
+.headerContent { /* Renomeie para camelCase */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px; /* Ajusta a margem inferior */
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 2.5em;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    transition: color 0.3s;
+}
+
+.header h1:hover {
+    color: #000000;
+}
+
+.header p {
+    margin: 0;
+    font-size: 1.2em;
+}
+
+.menu {
+    width: 100%;
+    background-color: #00a896;
+    display: flex;
+    justify-content: center;
+}
+
+.menuItems { /* Renomeie para camelCase */
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.menuItem { /* Renomeie para camelCase */
+    margin: 0 20px;
+    position: relative;
+}
+
+.menuItem a { /* Renomeie para camelCase */
+    color: white;
+    text-decoration: none;
+    font-size: 1em;
+    transition: color 0.3s;
+}
+
+.menuItem a:hover { /* Renomeie para camelCase */
+    color: #000000;
+}
+
+.submenu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #00a896;
+    z-index: 1002;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    min-width: 150px;
+}
+
+.menuItem:hover .submenu {
+    display: block;
+}
+
+.submenuItem {
+    padding: 10px;
+}
+
+.submenuItem a {
+    color: white;
+    text-decoration: none;
+    font-size: 0.9em;
+    transition: color 0.3s;
+}
+
+.submenuItem a:hover {
+    color: #000000;
+}

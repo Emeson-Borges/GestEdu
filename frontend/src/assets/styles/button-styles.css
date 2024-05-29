@@ -1,0 +1,39 @@
+/* Botão de salvar (Verde) */
+.btn-salvar {
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+  
+  /* Botão de editar (Azul) */
+  .btn-editar {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+  
+  /* Botão de excluir (Vermelho) */
+  .btn-excluir {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+  
+   /* Botão de Cancelar (Laranja) */
+   .btn-cancelar {
+    background-color: #e9800f;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    cursor: pointer;
+  }

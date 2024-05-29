@@ -1,0 +1,124 @@
+/* Estilos gerais */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.page-ListarCurso {
+    flex: 1;
+    margin: 20px auto;
+    max-width: 100%;
+    padding: 20px;
+    padding-top: 100px;
+}
+
+.listar-cursos {
+    margin: 20px auto;
+    max-width: 800px;
+    padding: 20px;
+    padding-top: 60px;
+}
+
+h1 {
+    text-align: center;
+}
+
+/* Estilos dos filtros */
+.filter-container {
+    margin-bottom: 20px;
+}
+
+.filter-container input[type="text"] {
+    margin-right: 10px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.filter-container button {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+}
+
+.filter-container button:hover {
+    background-color: #0056b3;
+}
+
+/* Estilos da tabela de cursos */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+table th, table td {
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: center;
+}
+
+table th {
+    background-color: #f2f2f2;
+}
+
+table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+table tr:hover {
+    background-color: #e9e9e9;
+}
+
+/* Estilos dos botões de ação na tabela */
+.action-buttons button {
+    padding: 5px 10px;
+    margin-right: 5px;
+    border: none;
+    border-radius: 5px;
+    background-color: #00a896;
+    color: #fff;
+    cursor: pointer;
+}
+
+.action-buttons button:hover {
+    background-color: #00a896;
+}
+
+.edit-search {
+    display: inline-block;
+    margin-right: 10px;
+}
+  
+.edit-search input[type="text"] {
+    width: 150px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 14px;
+    margin-left: 10px;
+}
+  
+.buttom-search {
+    display: inline-block;
+}
+  
+.buttom-search button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 3px;
+    background-color: #00a896; /* Cor verde do sistema */
+    color: #fff;
+    font-size: 14px;
+    cursor: pointer;
+}
+  
+.buttom-search button + button {
+    margin-left: 5px;
+}

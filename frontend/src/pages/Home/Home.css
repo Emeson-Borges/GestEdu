@@ -1,0 +1,29 @@
+/* Home.css */
+.home-main {
+    margin-top: 170px; /* Ajuste para não sobrepor o cabeçalho */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+}
+
+.home-section {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.home-section p {
+    max-width: 500px;
+    text-align: left;
+    margin-right: 20px;
+}
+
+.escola-image {
+    max-width: 300px;
+    height: auto;
+    margin-left: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
