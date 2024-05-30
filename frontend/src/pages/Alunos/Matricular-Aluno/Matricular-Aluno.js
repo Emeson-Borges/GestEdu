@@ -9,7 +9,7 @@ import ConfirmarDados from '../../../Components/ConfirmaDados/ConfirmaDados.js';
 
 function MatricularAluno() {
   const navigate = useNavigate(); // Hook de navegação do react-router-dom
-  
+
   const [formData, setFormData] = useState({
     nome: '',
     data_nascimento: '',
@@ -299,8 +299,10 @@ const handleCorrigir = () => {
           <div className="modal-content">
             <span className="close" onClick={() => setShowModal(false)}>&times;</span>
             <ConfirmarDados formData={formData} />
-            <div>
+            <div className='btn-confirmar-dados'>
               <button onClick={handleConfirm}>Confirmar</button>
+            </div>
+            <div className='btn-corrigir-dados'>
               <button onClick={handleCorrigir}>Corrigir</button>
             </div>
           </div>

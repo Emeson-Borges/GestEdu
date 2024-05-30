@@ -7,12 +7,19 @@ import Footer from '../../../Components/Footer/Footer.js';
 import styles from '../../../Components/Header/Header.module.css';
 import '../../../Components/Footer/Footer.module.css';
 
+import ModalSucesso from '../../../Components/ModalSucesso/ModalSucesso';
+import ModalErro from '../../../Components/ModalErro/ModalErro';
+import ModalConfirmacao from '../../../Components/ModalConfirmacao/ModalConfirmacao.js';
+
 function ListarAlunos() {
   const [alunos, setAlunos] = useState([]);
   const [filtroTurma, setFiltroTurma] = useState('');
   const [filtroAno, setFiltroAno] = useState('');
   const [filtroMatricula, setFiltroMatricula] = useState('');
   const [alunosFiltrados, setAlunosFiltrados] = useState([]);
+  const [modalContent, setModalContent] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+  const [alunoSelecionado, setAlunoSelecionado] = useState(null);
 
   useEffect(() => {
     // Função para buscar alunos do servidor
@@ -36,13 +43,61 @@ function ListarAlunos() {
     // Lógica para redirecionar para a página de edição do aluno com o ID especificado
   };
     
-  const excluirAluno = (id) => {
-    // Lógica para redirecionar para a página de edição do aluno com o ID especificado
+
+  // Função para abrir o modal de confirmação antes de excluir um aluno
+  const confirmarExclusao = (id) => {
+    setAlunoSelecionado(id);
+    setShowModal(true);
   };
-    
-  const visualizarDetalhes = (id) => {
-    // Lógica para redirecionar para a página de edição do aluno com o ID especificado
+
+  // Função para excluir um aluno
+  const excluirAluno = async () => {
+    try {
+      await axios.delete(`http://localhost:8000/api/alunos/${alunoSelecionado}/`);
+      // Atualizar a lista de alunos após a exclusão
+      setAlunos(alunos.filter(aluno => aluno.id !== alunoSelecionado));
+      // Fechar o modal de confirmação
+      setShowModal(false);
+      console.log('Aluno excluído com sucesso!');
+    } catch (error) {
+      console.error('Erro ao excluir aluno:', error);
+    }
   };
+
+  // Função para fechar o modal
+  const fecharModal = () => {
+    setShowModal(false);
+    setAlunoSelecionado(null);
+  };
+
+
+
+// Função para abrir modais
+const openModal = ({ type, message, aluno }) => {
+  switch (type) {
+    case 'success':
+      setModalContent(<ModalSucesso message={message} onClose={fecharModal} />);
+      break;
+    case 'error':
+      setModalContent(<ModalErro message={message} onClose={fecharModal} />);
+      break;
+      case 'confirmation':
+        setModalContent(
+          <ModalConfirmacao
+            message={message}
+            onConfirm={(id) => excluirAluno(id)}
+            onCancel={fecharModal}
+            id={aluno}
+          />
+        );
+        break;
+      
+    default:
+      break;
+  }
+  setShowModal(true);
+};
+
 
     const filtrarAlunos = async () => {
       try {
@@ -106,14 +161,22 @@ function ListarAlunos() {
               <td>{aluno.ano}</td>
               <td>{aluno.matricula}</td>
               <td>
-                <button onClick={() => editarAluno(aluno.id)}>Editar</button>
-                <button onClick={() => excluirAluno(aluno.id)}>Excluir</button>
-                <button onClick={() => visualizarDetalhes(aluno.id)}>Visualizar Detalhes</button>
+                <button onClick={() => editarAluno(aluno.id)} title="Editar registro do aluno">Editar</button>
+                <button onClick={() => confirmarExclusao(aluno.id)} title="Excluir registro do aluno">Excluir</button>
+                {/* <button onClick={() => visualizarDetalhes(aluno.id)} title="Visualizar detalhes do aluno">Detalhes</button> */}
               </td>
             </tr>
           ))}
         </tbody>
       </table>
+          {/* Renderização condicional do modal de confirmação */}
+          {showModal && (
+        <ModalConfirmacao
+          message="Tem certeza que deseja excluir este aluno?"
+          onConfirm={excluirAluno}
+          onCancel={fecharModal}
+        />
+      )}
       </div>
       <Footer />
     </div>

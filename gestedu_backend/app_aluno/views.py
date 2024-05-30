@@ -9,6 +9,7 @@ from rest_framework.pagination import PageNumberPagination
 from django.core.exceptions import ValidationError
 import random
 from django.http import JsonResponse
+from rest_framework import generics
 
 from django.db.models.functions import ExtractYear
 
@@ -82,4 +83,6 @@ def filtrar_alunos(request):
 
     return JsonResponse(alunos_serialized, safe=False)
 
-
+class AlunoDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Aluno.objects.all()
+    serializer_class = AlunoSerializer
