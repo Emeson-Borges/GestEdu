@@ -13,3 +13,6 @@ GestEdu é um sistema de software de gestão escolar projetado para facilitar a 
 git clone https://github.com/usuario/GestEdu.git
 cd GestEdu
 npm install
+```
+
+## Lincença educacional 

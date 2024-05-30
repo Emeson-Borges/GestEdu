@@ -47,13 +47,14 @@
     justify-content: center;
 }
 
-.menuItems { /* Renomeie para camelCase */
+.menuItems {
     list-style-type: none;
     padding: 0;
     margin: 0;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
+    gap: 20px; /* Adicione espaçamento entre os itens do menu principal */
 }
 
 .menuItem { /* Renomeie para camelCase */

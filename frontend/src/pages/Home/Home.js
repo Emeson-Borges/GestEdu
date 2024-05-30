@@ -6,7 +6,7 @@ import styles from '../../Components/Header/Header.module.css';
 import '../../Components/Footer/Footer.module.css';
 
 import './Home.css';
-import EscolaImage from './image/escola/R.jpeg'; // Importe a imagem da escola
+import EscolaImage from './image/escola/R.jpeg'; 
 
 function Home() {
   return (

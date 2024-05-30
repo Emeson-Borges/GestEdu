@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './Matricular-Aluno.css';
 import Header from '../../../Components/Header/Header.js';
 import Footer from '../../../Components/Footer/Footer.js';
 import InputMask from 'react-input-mask';
+import ConfirmarDados from '../../../Components/ConfirmaDados/ConfirmaDados.js';
 
 function MatricularAluno() {
+  const navigate = useNavigate(); // Hook de navegação do react-router-dom
+  
   const [formData, setFormData] = useState({
     nome: '',
     data_nascimento: '',
@@ -24,8 +27,11 @@ function MatricularAluno() {
     curso: ''
   });
 
+  const [showModal, setShowModal] = useState(false);
+
   const [errors, setErrors] = useState({});
   const [cursos, setCursos] = useState([]);
+  const [showConfirmation, setShowConfirmation] = useState(false); // Estado para controlar a exibição do componente de confirmação
 
   useEffect(() => {
     const fetchCursos = async () => {
@@ -52,7 +58,7 @@ function MatricularAluno() {
             [name]: value
         });
     }
-};
+  };
 
   const handleCPFChange = (e) => {
     const { name, value } = e.target;
@@ -89,32 +95,88 @@ function MatricularAluno() {
     }
   };
 
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("Botão Matricular clicado");
+    setShowModal(true); // Abrir o modal ao clicar em "Matricular"
+    // e.preventDefault();
     
-    const data = new FormData();
-    Object.keys(formData).forEach((key) => {
-        if (key === 'foto' && formData[key] === null) {
-            // Não adiciona o campo 'foto' se for null
-            return;
-        }
-        data.append(key, formData[key]);
+    // const data = new FormData();
+    // Object.keys(formData).forEach((key) => {
+    //     if (key === 'foto' && formData[key] === null) {
+    //         // Não adiciona o campo 'foto' se for null
+    //         return;
+    //     }
+    //     data.append(key, formData[key]);
+    // });
+
+    // try {
+    //     const response = await axios.post('http://localhost:8000/api/matricular/', data, {
+    //         headers: {
+    //             'Content-Type': 'multipart/form-data'
+    //         }
+    //     });
+    //     console.log('Aluno matriculado com sucesso:', response.data);
+
+    //      // Exibe o modal ao enviar com sucesso
+    //      setShowModal(true);
+    // } catch (error) {
+    //     console.error('Erro ao matricular aluno:', error);
+    //     if (error.response) {
+    //         // Servidor respondeu com um status diferente de 2xx
+    //         console.error('Resposta do servidor:', error.response.data);
+    //     }
+    // }
+    
+};
+
+const handleConfirm = async () => {
+  try {
+    const response = await axios.post('http://localhost:8000/api/matricular/', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    });
+    console.log('Aluno matriculado com sucesso:', response.data);
+    
+    // Limpar o formulário após o envio bem-sucedido (opcional)
+    setFormData({
+      nome: '',
+      data_nascimento: '',
+      sexo: '',
+      email: '',
+      telefone: '',
+      endereco: '',
+      cidade: '',
+      estado: '',
+      pais: '',
+      foto: null,
+      observacoes: '',
+      cep: '',
+      cpf: '',
+      curso: ''
     });
 
-    try {
-        const response = await axios.post('http://localhost:8000/api/matricular/', data, {
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            }
-        });
-        console.log('Aluno matriculado com sucesso:', response.data);
-    } catch (error) {
-        console.error('Erro ao matricular aluno:', error);
-        if (error.response) {
-            // Servidor respondeu com um status diferente de 2xx
-            console.error('Resposta do servidor:', error.response.data);
-        }
+    // Fechar o modal após enviar os dados
+    setShowModal(false);
+
+    // Redirecionar para a página de listagem de alunos
+    navigate('/listar-alunos');
+  } catch (error) {
+    console.error('Erro ao matricular aluno:', error);
+    if (error.response) {
+      // Servidor respondeu com um status diferente de 2xx
+      console.error('Resposta do servidor:', error.response.data);
     }
+    // Aqui você pode adicionar manipulação de erros adicional, se necessário
+  }
+};
+
+
+const handleCorrigir = () => {
+  // Fecha o modal ao clicar em "Corrigir"
+  setShowModal(false);
 };
 
 
@@ -123,9 +185,10 @@ function MatricularAluno() {
       <div>
       <Header />
       </div>
+
     <div className="matricular-aluno">
       <h1>Matricular Aluno</h1>
-      <form className="matricular-aluno-form" onSubmit={handleSubmit}>
+      <form className="matricular-aluno-form" onSubmit={handleSubmit} encType="multipart/form-data">
         {/* Renderizar mensagens de erro */}
         {Object.keys(errors).map((key) => (
           <div key={key} className="error-message">{errors[key]}</div>
@@ -230,6 +293,19 @@ function MatricularAluno() {
           <Link to="/listar-alunos" className="cancelar-button">Cancelar</Link>
         </div>
       </form>
+        {/* Modal */}
+      {showModal && (
+        <div className="modal">
+          <div className="modal-content">
+            <span className="close" onClick={() => setShowModal(false)}>&times;</span>
+            <ConfirmarDados formData={formData} />
+            <div>
+              <button onClick={handleConfirm}>Confirmar</button>
+              <button onClick={handleCorrigir}>Corrigir</button>
+            </div>
+          </div>
+        </div>
+      )}
       </div>
       <Footer />
     </div>
