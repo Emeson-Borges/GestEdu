@@ -1,4 +1,5 @@
 import React from 'react';
+import './ModalSucesso.css';
 
 const ModalSucesso = ({ message, onClose }) => {
   return (

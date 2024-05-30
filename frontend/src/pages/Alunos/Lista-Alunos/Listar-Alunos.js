@@ -44,60 +44,70 @@ function ListarAlunos() {
   };
     
 
-  // Função para abrir o modal de confirmação antes de excluir um aluno
-  const confirmarExclusao = (id) => {
-    setAlunoSelecionado(id);
-    setShowModal(true);
-  };
-
-  // Função para excluir um aluno
-  const excluirAluno = async () => {
-    try {
-      await axios.delete(`http://localhost:8000/api/alunos/${alunoSelecionado}/`);
-      // Atualizar a lista de alunos após a exclusão
-      setAlunos(alunos.filter(aluno => aluno.id !== alunoSelecionado));
-      // Fechar o modal de confirmação
-      setShowModal(false);
-      console.log('Aluno excluído com sucesso!');
-    } catch (error) {
-      console.error('Erro ao excluir aluno:', error);
-    }
-  };
-
-  // Função para fechar o modal
-  const fecharModal = () => {
-    setShowModal(false);
-    setAlunoSelecionado(null);
-  };
-
-
-
-// Função para abrir modais
-const openModal = ({ type, message, aluno }) => {
-  switch (type) {
-    case 'success':
-      setModalContent(<ModalSucesso message={message} onClose={fecharModal} />);
-      break;
-    case 'error':
-      setModalContent(<ModalErro message={message} onClose={fecharModal} />);
-      break;
+  const openModal = ({ type, message, callback, id }) => {
+    switch (type) {
+      case 'success':
+        setModalContent(<ModalSucesso message={message} onClose={fecharModal} />);
+        setShowModal(true);
+        setTimeout(() => {
+          fecharModal();
+        }, 3000);
+        break;
+      case 'error':
+        setModalContent(<ModalErro message={message} onClose={fecharModal} />);
+        setShowModal(true);
+        break;
       case 'confirmation':
         setModalContent(
           <ModalConfirmacao
             message={message}
-            onConfirm={(id) => excluirAluno(id)}
+            onConfirm={callback}
             onCancel={fecharModal}
-            id={aluno}
+            // id={id}
           />
         );
+        setShowModal(true);
         break;
-      
-    default:
-      break;
-  }
-  setShowModal(true);
-};
+      default:
+        break;
+    }
+  };
 
+  const fecharModal = () => {
+    setShowModal(false);
+    setModalContent(null)
+    setAlunoSelecionado(null);
+  };
+
+  const confirmarExclusao = (id) => {
+    if (id !== null && id !== undefined) {
+      setAlunoSelecionado(id);
+      openModal({
+        type: 'confirmation',
+        message: 'Tem certeza que deseja excluir este aluno?',
+        // id,
+        callback: () => excluirAluno(id)
+      });
+    } else {
+      console.error('ID do aluno não definido:', id);
+    }
+  };
+
+  const excluirAluno = async (id) => {
+    if (id !== null && id !== undefined) {
+      try {
+        await axios.delete(`http://localhost:8000/api/alunos/${id}/`);
+        setAlunos(alunos.filter(aluno => aluno.id !== id));
+        openModal({ type: 'success', message: 'Aluno excluído com sucesso!' });
+      } catch (error) {
+        console.error('Erro ao excluir aluno:', error);
+        openModal({ type: 'error', message: 'Ocorreu um erro ao tentar excluir o aluno. Tente novamente.' });
+      }
+    } else {
+      console.error('ID do aluno não definido:', id);
+    }
+  };
+  
 
     const filtrarAlunos = async () => {
       try {
@@ -169,15 +179,8 @@ const openModal = ({ type, message, aluno }) => {
           ))}
         </tbody>
       </table>
-          {/* Renderização condicional do modal de confirmação */}
-          {showModal && (
-        <ModalConfirmacao
-          message="Tem certeza que deseja excluir este aluno?"
-          onConfirm={excluirAluno}
-          onCancel={fecharModal}
-        />
-      )}
       </div>
+      {modalContent}
       <Footer />
     </div>
   );
