@@ -37,3 +37,31 @@ class Curso(models.Model):
         managed = True
         verbose_name = 'Curso'
         verbose_name_plural = 'Cursos'
+
+
+class Turma(models.Model):
+    
+    PERIODO_CHOICES = (
+        ('Integral', 'Integral'),
+        ('Manha', 'Manha'),
+        ('Tarde', 'Tarde'),
+        ('Noite', 'Noite'),
+    )
+    
+    
+    nome = models.CharField(max_length=100)
+    ano_letivo = models.IntegerField()
+    periodo = models.CharField(max_length=10, choices=PERIODO_CHOICES)
+    sala = models.CharField(max_length=20)
+    professor_responsavel = models.CharField(max_length=100)
+    coord_curso = models.CharField(max_length=100)
+    email_coord = models.EmailField(max_length=100)
+    
+
+    def __str__(self):
+        return self.nome
+    class Meta:
+        db_table = 'turma'
+        managed = True
+        verbose_name = 'Turma'
+        verbose_name_plural = 'Turmas'

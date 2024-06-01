@@ -1,0 +1,108 @@
+/* Estilo para o contêiner principal da listagem de turmas */
+.Listar-Turmas {
+  margin: auto;
+  max-width: 85%;
+  padding: 45px;
+}
+
+/* Estilo para o título */
+.Listar-Turmas h1 {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+/* Estilo para os filtros */
+.edit-search {
+  margin-bottom: 20px;
+}
+
+.edit-search input[type="text"] {
+  width: 200px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  margin-right: 10px;
+}
+
+.buttom-search button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 5px;
+  background-color: #1DB182;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.buttom-search button + button {
+  margin-left: 10px;
+}
+
+/* Estilo para a tabela de turmas */
+.tabela-coluna-turma {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.tabela-coluna-turma th,
+.tabela-coluna-turma td {
+  padding: 12px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+.tabela-coluna-turma th {
+  background-color: #f0f0f0;
+}
+
+.tabela-coluna-turma tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.tabela-coluna-turma tbody tr:hover {
+  background-color: #e9e9e9;
+}
+
+/* Estilo para os botões de ação na tabela */
+.btn-acoes-tabela button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 5px;
+  background-color: #17a2b8;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+  margin-right: 5px;
+}
+
+.btn-acoes-tabela button:hover {
+  background-color: #117a8b;
+}
+
+/* Estilo para os botões de navegação de página */
+.pagination-buttons {
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.pagination-buttons .btn-LoadNextPage button,
+.pagination-buttons .btn-LoadPrevPage button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+.pagination-buttons .btn-LoadNextPage button:disabled,
+.pagination-buttons .btn-LoadPrevPage button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}

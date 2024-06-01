@@ -2,51 +2,64 @@
 import React from 'react';
 import styles from './Header.module.css'; // Importe as classes CSS com o nome correto
 
+import logo from './image/GestEduuu.png';  // Importe a imagem
+import { CiCircleList } from "react-icons/ci";
+
+//Icons 
+import { BiEdit, BiTrash,  BiHome   } from 'react-icons/bi';
+import { FcReadingEbook, FcReading,  FcPlus, FcPlanner, FcViewDetails, FcAlarmClock, FcGraduationCap    } from "react-icons/fc";
+import { DiApple } from "react-icons/di";
+
+import { BsPersonAdd, BsPersonLinesFill, BsPersonVideo2, BsPersonRolodex, BsPostcard } from "react-icons/bs";
+// import { BsPersonLinesFill } from "react-icons/bs";
+
+
 function Header() {
   return (
     <header className={styles.header}>
       <div className={styles.headerContent}>
-        <h1>GestEdu</h1>
-        <p>Sistema de Gestão Escolar</p>
+      <img src={logo} alt="GestEdu" className={styles.logo} />
+        {/* <h1>GestEdu</h1> */}
+        {/* <p>Sistema de Gestão Escolar</p> */}
       </div>
       <nav className={styles.menu}>
         <ul className={styles.menuItems}>
           <li className={styles.menuItem}>
-            <a href="/">Início</a>
+            <a href="/"><BiHome /> Início</a>
           </li>
           <li className={styles.menuItem}>
-            <a href="/">Alunos</a>
+            <a href="/"><FcReading /> Alunos</a>
             {/* Adicione o submenu */}
             <ul className={styles.submenu}>
               <li className={styles.submenuItem}>
-                <a href="/listar-alunos">Lista de Alunos</a>
+                <a href="/listar-alunos">Lista de Alunos <BsPersonLinesFill /></a>
               </li>
               <li className={styles.submenuItem}>
-                <a href="/cadastrar-aluno">Matricular Aluno</a>
+                <a href="/cadastrar-aluno">Matricular Aluno <BsPersonAdd /></a>
               </li>
               <li className={styles.submenuItem}>
-                <a href="/">Notas e Avaliações</a>
+                <a href="/">Notas e Avaliações <BsPersonRolodex /></a>
               </li>
               <li className={styles.submenuItem}>
-                <a href="/">Presença</a>
+                <a href="/">Presença <BsPersonVideo2 /></a>
               </li>
               <li className={styles.submenuItem}>
-                <a href="/">Relatórios de Desempenho</a>
+                <a href="/">Relatórios de Desempenho <BsPostcard /></a>
               </li>
             </ul>
           </li>
           <li className={styles.menuItem}>
-            <a href="/">Professores</a>
+            <a href="/"><FcReadingEbook />Professores</a>
             {/* Adicione o submenu */}
             <ul className={styles.submenu}>
               <li className={styles.submenuItem}>
-                <a href="/">Lista de Professores</a>
+                <a href="/">Lista de Professores <FcViewDetails /></a>
               </li>
               <li className={styles.submenuItem}>
-                <a href="/">Cadastrar Professor</a>
+                <a href="/">Cadastrar Professor <FcPlus /></a>
               </li>
               <li className={styles.submenuItem}>
-                <a href="/">Horários de Aula</a>
+                <a href="/">Horários de Aula <FcAlarmClock  /></a>
               </li>
               <li className={styles.submenuItem}>
                 <a href="/">Atribuições de Turmas</a>
@@ -57,17 +70,20 @@ function Header() {
             </ul>
           </li>
           <li className={styles.menuItem}>
-            <a href="/">Turmas</a>
+            <a href="/"><FcGraduationCap /> Turmas</a>
             {/* Adicione o submenu */}
             <ul className={styles.submenu}>
               <li className={styles.submenuItem}>
-                <a href="/add-curso">Adicionar Curso</a>
+                <a href="/add-curso">Adicionar Curso <FcPlus /></a>
               </li>
               <li className={styles.submenuItem}>
-                <a href="/cursos-list">Lista de Turmas</a>
+                <a href="/cursos-list">Lista de Cursos <FcViewDetails /></a>
               </li>
               <li className={styles.submenuItem}>
-                <a href="/">Adicionar Turma</a>
+                <a href="/turma-list-create">Adicionar Turma <FcPlus /></a>
+              </li>
+              <li className={styles.submenuItem}>
+                <a href="/turma-list">Listar Turma <FcViewDetails /></a>
               </li>
               <li className={styles.submenuItem}>
                 <a href="/">Horários das Aulas</a>
@@ -78,14 +94,14 @@ function Header() {
             </ul>
           </li>
           <li className={styles.menuItem}>
-            <a href="/">Disciplinas</a>
+            <a href="/"><DiApple /> Disciplinas</a>
             {/* Adicione o submenu */}
             <ul className={styles.submenu}>
               <li className={styles.submenuItem}>
                 <a href="/">Lista de Disciplinas</a>
               </li>
               <li className={styles.submenuItem}>
-                <a href="/">Adicionar Disciplina</a>
+                <a href="/">Adicionar Disciplina <FcPlus /></a>
               </li>
               <li className={styles.submenuItem}>
                 <a href="/">Plano de Ensino</a>
@@ -96,7 +112,7 @@ function Header() {
             </ul>
           </li>
           <li className={styles.menuItem}>
-            <a href="/">Relatórios</a>
+            <a href="/"><CiCircleList /> Relatórios</a>
             {/* Adicione o submenu */}
             <ul className={styles.submenu}>
               <li className={styles.submenuItem}>
@@ -114,7 +130,7 @@ function Header() {
             </ul>
           </li>
           <li className={styles.menuItem}>
-            <a href="/">Calendário</a>
+            <a href="/"><FcPlanner /> Calendário</a>
             {/* Adicione o submenu */}
             <ul className={styles.submenu}>
               <li className={styles.submenuItem}>

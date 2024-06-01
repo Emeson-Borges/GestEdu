@@ -5,6 +5,8 @@ import MatricularAluno from './pages/Alunos/Matricular-Aluno/Matricular-Aluno';
 import ListarAlunos from './pages/Alunos/Lista-Alunos/Listar-Alunos';
 import CadastrarCurso from './pages/Turmas/AddCurso/AddCurso';
 import ListarCursos from './pages/Turmas/ListarCurso/ListarCurso';
+import AddTurma from './pages/Turmas/AddTurma/AddTurma';
+import ListarTurmas from './pages/Turmas/ListarTurma/ListarTurma';
 
 const App = () => {
     return (
@@ -16,6 +18,8 @@ const App = () => {
                 <Route path="/listar-alunos" element={<ListarAlunos />} />
                 <Route path="/add-curso" element={<CadastrarCurso />} />
                 <Route path="/cursos-list" element={<ListarCursos />} />
+                <Route path="/turma-list-create" element={<AddTurma />} />
+                <Route path="/turma-list" element={<ListarTurmas />} />
                 {/* Adicione outras rotas aqui */}
             </Routes>
         </Router>
