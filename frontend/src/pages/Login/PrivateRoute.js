@@ -1,9 +1,8 @@
 import React from 'react';
-import { Route, Navigate } from 'react-router-dom';
-import jwtDecode from 'jwt-decode'; 
+import { Navigate, Outlet } from 'react-router-dom';
+import jwtDecode from 'jwt-decode';
 
-
-const PrivateRoute = ({ element: Element, ...rest }) => {
+const PrivateRoute = () => {
   const isAuthenticated = () => {
     const token = localStorage.getItem('access_token');
     if (token) {
@@ -14,12 +13,7 @@ const PrivateRoute = ({ element: Element, ...rest }) => {
     return false;
   };
 
-  return (
-    <Route
-      {...rest}
-      element={isAuthenticated() ? <Element {...rest} /> : <Navigate to="/login" />}
-    />
-  );
+  return isAuthenticated() ? <Outlet /> : <Navigate to="/login" />;
 };
 
 export default PrivateRoute;

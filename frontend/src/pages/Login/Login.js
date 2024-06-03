@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import jwt_decode from 'jwt-decode';
 import axios from 'axios';
+import { Link } from 'react-router-dom'
+
+import './Login.css';
 
 function Login() {
     const [username, setUsername] = useState('');
@@ -17,14 +19,14 @@ function Login() {
         localStorage.setItem('access_token', response.data.access);
         localStorage.setItem('refresh_token', response.data.refresh);
         // Redirecionando para a página inicial após o login bem-sucedido
-        window.location.href = '/'; // Redirecionamento após o login
+        window.location.href = '/';
       } catch (error) {
         setError('Login failed. Please check your username and password.');
       }
     };
   
     return (
-      <div>
+      <div className='div-principal'>
         <h2>Login</h2>
         <form onSubmit={handleSubmit}>
           <label>
@@ -38,6 +40,10 @@ function Login() {
           </label>
           <br />
           <button type="submit">Login</button>
+          <div>
+            {/* Seu formulário de login */}
+            <Link to="/cadastro-usuario">Criar uma nova conta</Link>
+          </div>
         </form>
         {error && <p>{error}</p>}
       </div>

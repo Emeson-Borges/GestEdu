@@ -1,26 +1,55 @@
 // Header.js
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios'; // Importe o axios para fazer a chamada à API
 import styles from './Header.module.css'; // Importe as classes CSS com o nome correto
 
 import logo from './image/GestEduuu.png';  // Importe a imagem
-import { CiCircleList } from "react-icons/ci";
+import defaultProfilePic from './image/imgpadraoperfil.png';
 
-//Icons 
-import { BiEdit, BiTrash,  BiHome   } from 'react-icons/bi';
-import { FcReadingEbook, FcReading,  FcPlus, FcPlanner, FcViewDetails, FcAlarmClock, FcGraduationCap    } from "react-icons/fc";
-import { DiApple } from "react-icons/di";
-
+// Icons 
+import { BiHome, BiLogOutCircle, BiCog } from 'react-icons/bi';
+import { CiCircleList } from 'react-icons/ci';
+import { FcReadingEbook, FcReading, FcPlus, FcPlanner, FcViewDetails, FcAlarmClock, FcGraduationCap } from "react-icons/fc";
 import { BsPersonAdd, BsPersonLinesFill, BsPersonVideo2, BsPersonRolodex, BsPostcard, BsJournalMedical } from "react-icons/bs";
-// import { BsPersonLinesFill } from "react-icons/bs";
-
 
 function Header() {
+  const navigate = useNavigate();
+  const [showDropdown, setShowDropdown] = useState(false);
+  const [profilePicUrl, setProfilePicUrl] = useState('');
+
+  useEffect(() => {
+    const fetchUserProfile = async () => {
+      try {
+        const response = await axios.get('/api/user-profile/', {
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+          }
+        });
+        setProfilePicUrl(response.data.profile_image_url); // Ajuste o campo conforme necessário
+      } catch (error) {
+        console.error('Erro ao buscar dados do perfil do usuário:', error);
+        setProfilePicUrl(defaultProfilePic);
+      }
+    };
+
+    fetchUserProfile();
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('refresh_token');
+    navigate('/login');
+  };
+
+  const toggleDropdown = () => {
+    setShowDropdown(!showDropdown);
+  };
+
   return (
     <header className={styles.header}>
       <div className={styles.headerContent}>
-      <img src={logo} alt="GestEdu" className={styles.logo} />
-        {/* <h1>GestEdu</h1> */}
-        {/* <p>Sistema de Gestão Escolar</p> */}
+        <img src={logo} alt="GestEdu" className={styles.logo} />
       </div>
       <nav className={styles.menu}>
         <ul className={styles.menuItems}>
@@ -29,7 +58,6 @@ function Header() {
           </li>
           <li className={styles.menuItem}>
             <a href="/"><FcReading /> Alunos</a>
-            {/* Adicione o submenu */}
             <ul className={styles.submenu}>
               <li className={styles.submenuItem}>
                 <a href="/listar-alunos">Lista de Alunos <BsPersonLinesFill /></a>
@@ -50,7 +78,6 @@ function Header() {
           </li>
           <li className={styles.menuItem}>
             <a href="/"><FcReadingEbook />Professores</a>
-            {/* Adicione o submenu */}
             <ul className={styles.submenu}>
               <li className={styles.submenuItem}>
                 <a href="/">Lista de Professores <FcViewDetails /></a>
@@ -59,7 +86,7 @@ function Header() {
                 <a href="/">Cadastrar Professor <FcPlus /></a>
               </li>
               <li className={styles.submenuItem}>
-                <a href="/">Horários de Aula <FcAlarmClock  /></a>
+                <a href="/">Horários de Aula <FcAlarmClock /></a>
               </li>
               <li className={styles.submenuItem}>
                 <a href="/">Atribuições de Turmas</a>
@@ -71,7 +98,6 @@ function Header() {
           </li>
           <li className={styles.menuItem}>
             <a href="/"><FcGraduationCap /> Turmas</a>
-            {/* Adicione o submenu */}
             <ul className={styles.submenu}>
               <li className={styles.submenuItem}>
                 <a href="/add-curso">Adicionar Curso <FcPlus /></a>
@@ -95,7 +121,6 @@ function Header() {
           </li>
           <li className={styles.menuItem}>
             <a href="/"><BsJournalMedical /> Disciplinas</a>
-            {/* Adicione o submenu */}
             <ul className={styles.submenu}>
               <li className={styles.submenuItem}>
                 <a href="/">Lista de Disciplinas</a>
@@ -113,7 +138,6 @@ function Header() {
           </li>
           <li className={styles.menuItem}>
             <a href="/"><CiCircleList /> Relatórios</a>
-            {/* Adicione o submenu */}
             <ul className={styles.submenu}>
               <li className={styles.submenuItem}>
                 <a href="/">Relatórios Gerais</a>
@@ -131,7 +155,6 @@ function Header() {
           </li>
           <li className={styles.menuItem}>
             <a href="/"><FcPlanner /> Calendário</a>
-            {/* Adicione o submenu */}
             <ul className={styles.submenu}>
               <li className={styles.submenuItem}>
                 <a href="/">Eventos Escolares</a>
@@ -144,9 +167,21 @@ function Header() {
               </li>
             </ul>
           </li>
-          {/* Adicione mais itens de menu conforme necessário */}
         </ul>
       </nav>
+      <div className={styles.profile}>
+        <img src={profilePicUrl} alt="Profile" className={styles.profilePic} onClick={toggleDropdown} />
+        {showDropdown && (
+          <ul className={styles.dropdownMenu}>
+            <li className={styles.dropdownItem}>
+              <a href="/user_data"><BiCog /> Configurações</a>
+            </li>
+            <li className={styles.dropdownItem} onClick={handleLogout}>
+              <BiLogOutCircle /> Sair
+            </li>
+          </ul>
+        )}
+      </div>
     </header>
   );
 }

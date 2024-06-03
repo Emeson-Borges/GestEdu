@@ -9,21 +9,37 @@ import AddTurma from './pages/Turmas/AddTurma/AddTurma';
 import ListarTurmas from './pages/Turmas/ListarTurma/ListarTurma';
 import Login from './pages/Login/Login';
 import PrivateRoute from './pages/Login/PrivateRoute';
+import CadastroUsuario from './pages/Users/Users';
+import UsersConfig from './pages/UsersData/UsersData';
 
 const App = () => {
     return (
         
         <Router>
             <Routes>
+                
                 <Route path="/" element={<Home />} />
+
                 <Route path="/cadastrar-aluno" element={<MatricularAluno />} />
+
                 <Route path="/listar-alunos" element={<ListarAlunos />} />
+
                 <Route path="/add-curso" element={<CadastrarCurso />} />
+
                 <Route path="/cursos-list" element={<ListarCursos />} />
+
                 <Route path="/turma-list-create" element={<AddTurma />} />
+
                 <Route path="/turma-list" element={<ListarTurmas />} />
+
                 <Route path="/login" element={<Login />} />
-                {/* Adicione outras rotas aqui */}
+
+                <Route element={<PrivateRoute />}></Route>
+
+                <Route path="/user_data" element={<UsersConfig />} />
+
+                <Route path="/cadastro-usuario" element={<CadastroUsuario />} />
+
             </Routes>
         </Router>
     );

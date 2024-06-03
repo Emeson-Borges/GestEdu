@@ -11,21 +11,16 @@ import ModalSucesso from '../../../Components/ModalSucesso/ModalSucesso';
 import ModalErro from '../../../Components/ModalErro/ModalErro';
 import ModalConfirmacao from '../../../Components/ModalConfirmacao/ModalConfirmacao.js';
 
-//Icons 
+// Icons
 import { BiPrinter } from 'react-icons/bi';
 import { IoMdMail } from 'react-icons/io';
-import { RiFileList3Line, RiPrinterLine, RiFileExcel2Line, RiAddLine, RiFilterFill, RiFormatClear} from 'react-icons/ri';
+import { RiFileList3Line, RiPrinterLine, RiFileExcel2Line, RiAddLine, RiFilterFill, RiFormatClear } from 'react-icons/ri';
+import { BiEdit, BiTrash, BiChevronRight, BiChevronLeft } from 'react-icons/bi';
+import { FcEmptyFilter } from "react-icons/fc";
+import { BsFiletypeCsv, BsPersonAdd, BsFillPersonCheckFill } from "react-icons/bs";
 
-//Icons 
-import { BiEdit, BiTrash, BiChevronRight, BiChevronLeft  } from 'react-icons/bi';
-
-import {  FcEmptyFilter  } from "react-icons/fc";
-
-import { BsFiletypeCsv, BsPersonAdd, BsFillPersonCheckFill  } from "react-icons/bs";
-
-// Funções 
+// Funções
 import { imprimirLista } from '../../../Components/Funcoes/Funcoes.js';
-
 
 function ListarAlunos() {
   const [alunos, setAlunos] = useState([]);
@@ -43,7 +38,12 @@ function ListarAlunos() {
     // Função para buscar alunos do servidor
     const fetchAlunos = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/api/alunos/');
+        const token = localStorage.getItem('access_token');
+        const response = await axios.get('http://localhost:8000/api/alunos/', {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
         // Mapeia os dados recebidos para incluir o ano da data de matrícula
         const alunosData = response.data.map(aluno => {
           const criadoEm = new Date(aluno.criado_em);
@@ -55,7 +55,7 @@ function ListarAlunos() {
         });
         setAlunos(alunosData);
       } catch (error) {
-        // console.error('Erro ao buscar alunos:', error);
+        console.error('Erro ao buscar alunos:', error);
       }
     };
 
@@ -65,48 +65,49 @@ function ListarAlunos() {
 
   const loadNextPage = async () => {
     try {
-      const response = await axios.get(nextPageUrl);
-      setAlunos(response.data); // Define os dados da próxima página
+      const token = localStorage.getItem('access_token');
+      const response = await axios.get(nextPageUrl, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      setAlunos(response.data.results); // Define os dados da próxima página
       setNextPageUrl(response.data.next); // Atualiza a URL da próxima página
       setPrevPageUrl(response.data.previous); // Atualiza a URL da página anterior
     } catch (error) {
-      console.error('Erro ao carregar próxima página de turmas:', error);
-    }
-  };
-  
-  
-  
-  const loadPrevPage = async () => {
-    try {
-      const response = await axios.get(prevPageUrl);
-      setAlunos(response.data); // Define os dados da página anterior
-      setNextPageUrl(response.data.next); // Atualiza a URL da próxima página
-      setPrevPageUrl(response.data.previous); // Atualiza a URL da página anterior
-    } catch (error) {
-      console.error('Erro ao carregar página anterior de turmas:', error);
+      console.error('Erro ao carregar próxima página de alunos:', error);
     }
   };
 
-  // Função para editar um aluno
+  const loadPrevPage = async () => {
+    try {
+      const token = localStorage.getItem('access_token');
+      const response = await axios.get(prevPageUrl, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      setAlunos(response.data.results); // Define os dados da página anterior
+      setNextPageUrl(response.data.next); // Atualiza a URL da próxima página
+      setPrevPageUrl(response.data.previous); // Atualiza a URL da página anterior
+    } catch (error) {
+      console.error('Erro ao carregar página anterior de alunos:', error);
+    }
+  };
+
   const editarAluno = (id) => {
     // Lógica para redirecionar para a página de edição do aluno com o ID especificado
   };
-    
+  
   const visualizarDetalhes = () => {
-
+    // Lógica para visualizar os detalhes de um aluno
   };
 
-  // Funções de ação para os botões
   const exportarCSV = () => {
-    // Cria um string CSV com os cabeçalhos das colunas
     let csv = 'Nome,Turma,Ano,Matrícula\n';
-  
-    // Adiciona os dados dos alunos ao CSV
     alunos.forEach(aluno => {
       csv += `${aluno.nome},${aluno.turma},${aluno.anoMatricula},${aluno.matricula}\n`;
     });
-  
-    // Cria um elemento de link para download do CSV
     const csvData = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
     const csvUrl = window.URL.createObjectURL(csvData);
     const tempLink = document.createElement('a');
@@ -123,6 +124,7 @@ function ListarAlunos() {
   const adicionarNovoAluno = () => {
     // Implementação da função de adicionar novo aluno
   };
+
   const openModal = ({ type, message, callback, id }) => {
     switch (type) {
       case 'success':
@@ -142,7 +144,6 @@ function ListarAlunos() {
             message={message}
             onConfirm={callback}
             onCancel={fecharModal}
-            // id={id}
           />
         );
         setShowModal(true);
@@ -154,7 +155,7 @@ function ListarAlunos() {
 
   const fecharModal = () => {
     setShowModal(false);
-    setModalContent(null)
+    setModalContent(null);
     setAlunoSelecionado(null);
   };
 
@@ -164,7 +165,6 @@ function ListarAlunos() {
       openModal({
         type: 'confirmation',
         message: 'Tem certeza que deseja excluir este aluno?',
-        // id,
         callback: () => excluirAluno(id)
       });
     } else {
@@ -175,7 +175,12 @@ function ListarAlunos() {
   const excluirAluno = async (id) => {
     if (id !== null && id !== undefined) {
       try {
-        await axios.delete(`http://localhost:8000/api/alunos/${id}/`);
+        const token = localStorage.getItem('access_token');
+        await axios.delete(`http://localhost:8000/api/alunos/${id}/`, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
         setAlunos(alunos.filter(aluno => aluno.id !== id));
         openModal({ type: 'success', message: 'Aluno excluído com sucesso!' });
       } catch (error) {
@@ -186,27 +191,26 @@ function ListarAlunos() {
       console.error('ID do aluno não definido:', id);
     }
   };
-  
 
-    const filtrarAlunos = async () => {
-      try {
-        const response = await axios.get('http://localhost:8000/api/filtrar_alunos/', {
-          params: {
-            ano: filtroAno || undefined,
-            matricula: filtroMatricula || undefined
-          }
-        });
-        setAlunosFiltrados(response.data);
-      } catch (error) {
-        console.error('Erro ao filtrar alunos:', error);
-      }
-    };
-  
-    const limparFiltros = () => {
-      setFiltroAno('');
-      setFiltroMatricula('');
-      filtrarAlunos(); // Chama a função de filtragem para recarregar todos os alunos novamente
-    };
+  const filtrarAlunos = async () => {
+    try {
+      const response = await axios.get('http://localhost:8000/api/filtrar_alunos/', {
+        params: {
+          ano: filtroAno || undefined,
+          matricula: filtroMatricula || undefined
+        }
+      });
+      setAlunosFiltrados(response.data);
+    } catch (error) {
+      console.error('Erro ao filtrar alunos:', error);
+    }
+  };
+
+  const limparFiltros = () => {
+    setFiltroAno('');
+    setFiltroMatricula('');
+    filtrarAlunos(); // Chama a função de filtragem para recarregar todos os alunos novamente
+  };
   
     useEffect(() => {
       filtrarAlunos();
