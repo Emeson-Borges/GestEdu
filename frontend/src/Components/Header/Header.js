@@ -10,7 +10,7 @@ import { BiEdit, BiTrash,  BiHome   } from 'react-icons/bi';
 import { FcReadingEbook, FcReading,  FcPlus, FcPlanner, FcViewDetails, FcAlarmClock, FcGraduationCap    } from "react-icons/fc";
 import { DiApple } from "react-icons/di";
 
-import { BsPersonAdd, BsPersonLinesFill, BsPersonVideo2, BsPersonRolodex, BsPostcard } from "react-icons/bs";
+import { BsPersonAdd, BsPersonLinesFill, BsPersonVideo2, BsPersonRolodex, BsPostcard, BsJournalMedical } from "react-icons/bs";
 // import { BsPersonLinesFill } from "react-icons/bs";
 
 
@@ -94,7 +94,7 @@ function Header() {
             </ul>
           </li>
           <li className={styles.menuItem}>
-            <a href="/"><DiApple /> Disciplinas</a>
+            <a href="/"><BsJournalMedical /> Disciplinas</a>
             {/* Adicione o submenu */}
             <ul className={styles.submenu}>
               <li className={styles.submenuItem}>

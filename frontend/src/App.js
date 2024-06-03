@@ -7,6 +7,8 @@ import CadastrarCurso from './pages/Turmas/AddCurso/AddCurso';
 import ListarCursos from './pages/Turmas/ListarCurso/ListarCurso';
 import AddTurma from './pages/Turmas/AddTurma/AddTurma';
 import ListarTurmas from './pages/Turmas/ListarTurma/ListarTurma';
+import Login from './pages/Login/Login';
+import PrivateRoute from './pages/Login/PrivateRoute';
 
 const App = () => {
     return (
@@ -20,6 +22,7 @@ const App = () => {
                 <Route path="/cursos-list" element={<ListarCursos />} />
                 <Route path="/turma-list-create" element={<AddTurma />} />
                 <Route path="/turma-list" element={<ListarTurmas />} />
+                <Route path="/login" element={<Login />} />
                 {/* Adicione outras rotas aqui */}
             </Routes>
         </Router>
