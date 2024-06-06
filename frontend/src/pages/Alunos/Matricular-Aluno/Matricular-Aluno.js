@@ -183,10 +183,8 @@ const handleCorrigir = () => {
   return (
     <div>
       <div>
-      <Header />
+       <Header />
       </div>
-
-    <div className="matricular-aluno">
       <h1>Matricular Aluno</h1>
       <form className="matricular-aluno-form" onSubmit={handleSubmit} encType="multipart/form-data">
         {/* Renderizar mensagens de erro */}
@@ -194,16 +192,11 @@ const handleCorrigir = () => {
           <div key={key} className="error-message">{errors[key]}</div>
         ))}
 
-        <div className="form-row">
-          <div className="form-group">
+
             <label htmlFor="nome">Nome:</label>
             <input type="text" id="nome" name="nome" value={formData.nome} onChange={handleChange} required />
-          </div>
-          <div className="form-group">
             <label htmlFor="data_nascimento">Data de Nascimento:</label>
             <input type="date" id="data_nascimento" name="data_nascimento" value={formData.data_nascimento} onChange={handleChange} required />
-          </div>
-          <div className="form-group">
             <label htmlFor="sexo">Sexo:</label>
             <select id="sexo" name="sexo" value={formData.sexo} onChange={handleChange} required>
               <option value="">Selecione</option>
@@ -211,18 +204,11 @@ const handleCorrigir = () => {
               <option value="F">Feminino</option>
               <option value="O">Outro</option>
             </select>
-          </div>
-        </div>
-        <div className="form-row">
-          <div className="form-group">
             <label htmlFor="email">Email:</label>
             <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} required />
-          </div>
-          <div className="form-group">
             <label htmlFor="telefone">Telefone:</label>
             <input type="text" id="telefone" name="telefone" value={formData.telefone} onChange={handleChange} />
-          </div>
-          <div className="form-group">
+
             <label htmlFor="cep">CEP:</label>
             <InputMask
               type="text"
@@ -233,28 +219,17 @@ const handleCorrigir = () => {
               onChange={handleMaskCEPChange}
               required
             />
-          </div>
-        </div>
-        <div className="form-row">
-          <div className="form-group">
             <label htmlFor="endereco">Endereço:</label>
             <input type="text" id="endereco" name="endereco" value={formData.endereco} onChange={handleChange} />
-          </div>
-          <div className="form-group">
             <label htmlFor="cidade">Cidade:</label>
             <input type="text" id="cidade" name="cidade" value={formData.cidade} onChange={handleChange} />
-          </div>
-          <div className="form-group">
+
             <label htmlFor="estado">Estado:</label>
             <input type="text" id="estado" name="estado" value={formData.estado} onChange={handleChange} />
-          </div>
-          <div className="form-group">
+
             <label htmlFor="pais">País:</label>
             <input type="text" id="pais" name="pais" value={formData.pais} onChange={handleChange} />
-          </div>
-        </div>
-        <div className="form-row">
-          <div className="form-group">
+
             <label htmlFor="cpf">CPF:</label>
             <InputMask
               type="text"
@@ -265,8 +240,7 @@ const handleCorrigir = () => {
               onChange={handleCPFChange}
               required
             />
-          </div>
-          <div className="form-group">
+
             <label htmlFor="curso">Curso:</label>
             <select id="curso" name="curso" value={formData.curso} onChange={handleChange} required>
               <option value="">Selecione</option>
@@ -274,42 +248,35 @@ const handleCorrigir = () => {
                 <option key={curso.id} value={curso.id}>{curso.nome}</option>
               ))}
             </select>
-          </div>
-        </div>
-        <div className="form-row">
-          <div className="form-group">
+
             <label htmlFor="foto">Foto:</label>
             <input type="file" id="foto" name="foto" onChange={handleChange} />
-          </div>
-        </div>
-        <div className="form-row">
-          <div className="form-group">
+
             <label htmlFor="observacoes">Observações:</label>
             <textarea id="observacoes" name="observacoes" value={formData.observacoes} onChange={handleChange}></textarea>
-          </div>
-        </div>
-        <div className="form-row">
+
           <button type="submit" className="matricular-button">Matricular</button>
           <Link to="/listar-alunos" className="cancelar-button">Cancelar</Link>
-        </div>
+
       </form>
         {/* Modal */}
-      {showModal && (
-        <div className="modal">
-          <div className="modal-content">
-            <span className="close" onClick={() => setShowModal(false)}>&times;</span>
-            <ConfirmarDados formData={formData} />
-            <div className='btn-confirmar-dados'>
-              <button onClick={handleConfirm}>Confirmar</button>
-            </div>
-            <div className='btn-corrigir-dados'>
-              <button onClick={handleCorrigir}>Corrigir</button>
+        {showModal && (
+          <div className="modal">
+            <div className="modal-content">
+              <span className="close" onClick={() => setShowModal(false)}>&times;</span>
+              <ConfirmarDados formData={formData} />
+              <div className='btn-confirmar-dados'>
+                <button onClick={handleConfirm}>Confirmar</button>
+              </div>
+              <div className='btn-corrigir-dados'>
+                <button onClick={handleCorrigir}>Corrigir</button>
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
+      <div>
+       <Footer />
       </div>
-      <Footer />
     </div>
   );
 }

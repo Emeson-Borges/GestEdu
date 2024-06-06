@@ -278,7 +278,9 @@ function ListarAlunos() {
         <div className="action-buttons">
           <button onClick={exportarCSV} title="Exportar para CSV"><BsFiletypeCsv /> Exportar para CSV</button>
           <button onClick={imprimir} title="Imprimir Lista"><RiPrinterLine /> Imprimir Lista</button>
+          <Link to="/cadastrar-aluno">
           <button onClick={adicionarNovoAluno} title="Adicionar Novo Aluno"><BsPersonAdd /> Novo Aluno</button>
+          </Link>
           {/* Outros botões de ação aqui */}
         </div>
       </div>

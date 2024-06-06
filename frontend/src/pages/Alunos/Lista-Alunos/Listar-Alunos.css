@@ -9,7 +9,7 @@
   }
   
   h1 {
-    margin-top: 185px;
+    margin-top: 25px;
     text-align: center;
   }
   
@@ -93,6 +93,7 @@
     border-radius: 3px;
     font-size: 14px;
     margin-left: 10px;
+    margin-bottom: -17%;
 }
   
 .buttom-search {
@@ -124,7 +125,7 @@
 .Listar-Alunos h1 {
   text-align: center;
   color: #333;
-  font-size: 24px;
+  font-size: 25px;
   margin-bottom: 20px;
 }
 
@@ -143,8 +144,8 @@ thead th {
   color: #000000; /* Cor do texto do cabeçalho */
   padding: 10px;
   text-align: left;
-  /* border-bottom: 2px solid #0056b3; /* Borda inferior */
-  /* border-top: 2px solid #0056b3;  */
+  /* border-bottom: 2px solid #000000;
+  border-top: 2px solid #0000;  */
 }
 
 /* Estilo para as células do corpo da tabela */

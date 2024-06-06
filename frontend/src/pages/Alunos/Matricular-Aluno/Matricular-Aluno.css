@@ -12,14 +12,6 @@ h1 {
   margin-bottom: 20px;
 }
 
-.matricular-aluno {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
 
 .matricular-aluno-form {
   display: flex;
@@ -27,182 +19,71 @@ h1 {
   gap: 20px;
 }
 
+
+.form-container {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  overflow: auto;
+}
+
 .form-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
+  justify-content: space-between;
+  margin-bottom: 20px;
 }
 
 .form-group {
-  flex: 1 1 220px; /* Define a largura mínima dos grupos de formulário */
-  display: flex;
-  flex-direction: column;
+  /* flex: 10 0 calc(11.11% - 10px); Distribui igualmente em três colunas */
+  margin-bottom: 20px;
 }
 
 .form-group label {
+  display: block;
   margin-bottom: 5px;
   font-weight: bold;
 }
 
-.form-group input[type="text"],
-.form-group input[type="date"],
-.form-group input[type="email"],
-.form-group input[type="file"],
+.form-group input,
 .form-group select,
 .form-group textarea {
+  width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  font-size: 14px;
-  width: 100%;
-
 }
 
-.form-group textarea {
-  resize: vertical;
-  min-height: 100px;
-}
-
-.error-message {
-  color: red;
-  font-size: 14px;
-  margin-bottom: 10px;
-}
-
-.form-row .matricular-button,
-.form-row .cancelar-button {
-  padding: 10px 20px;
+.matricular-button,
+.cancelar-button {
+  /* background-color: #007bff;
+  color: #fff;
   border: none;
+  padding: 10px 20px;
   border-radius: 5px;
-  font-size: 16px;
   cursor: pointer;
+  text-decoration: none; */
+
+  background-color: #04AA6D; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
-}
-
-.matricular-button {
-  background-color: #00a896;
-  color: white;
+  font-size: 16px;
+  border-radius: 5px;
 }
 
 .cancelar-button {
-  background-color: #ccc;
-  color: black;
+  background-color: #dc3545;
   margin-left: 10px;
 }
 
-.matricular-button:hover {
-  background-color: #007b6e;
-}
-
 .cancelar-button:hover {
-  background-color: #999;
-}
-
-/* Adiciona espaçamento entre o conteúdo principal e o rodapé */
-.matricular-aluno {
-  padding-bottom: 100px;
-}
-
-/* Estilos específicos do header e footer */
-/* footer {
-  position: relative;
-  bottom: 0;
-  width: 100%;
-  background-color: #00a896;
-  color: #fff;
-  padding: 20px 0;
-  text-align: center;
-  margin-top: 40px;
-}
-
-footer p {
-  margin: 0;
-}
-
-footer a {
-  color: #fff;
-  text-decoration: none;
-  transition: color 0.3s;
-}
-
-footer a:hover {
-  color: #ccc;
-} */
-
-
-/* MatricularAluno.css */
-.modal {
-  display: block;
-  position: fixed;
-  z-index: 1;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgba(0,0,0,0.5); /* Cor de fundo escura */
-}
-
-.modal-content {
-  background-color: white;
-  margin: 15% auto;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 80%;
-}
-
-.close {
-  color: #aaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-  color: black;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-
-/* Estilo para o contêiner dos botões */
-.btn-confirmar-dados,
-.btn-corrigir-dados {
-    display: inline-block;
-    margin: 10px;
-}
-
-/* Estilo base para ambos os botões */
-.btn-confirmar-dados button,
-.btn-corrigir-dados button {
-    padding: 10px 20px;
-    font-size: 16px;
-    font-weight: bold;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-/* Estilo específico para o botão Confirmar */
-.btn-confirmar-dados button {
-    background-color: #28a745; /* Cor de fundo verde */
-    color: #fff; /* Cor do texto branco */
-}
-
-.btn-confirmar-dados button:hover {
-    background-color: #218838; /* Cor de fundo verde escuro ao passar o mouse */
-}
-
-/* Estilo específico para o botão Corrigir */
-.btn-corrigir-dados button {
-    background-color: #dc3545; /* Cor de fundo vermelho */
-    color: #fff; /* Cor do texto branco */
-}
-
-.btn-corrigir-dados button:hover {
-    background-color: #c82333; /* Cor de fundo vermelho escuro ao passar o mouse */
+  background-color: #c82333;
 }
